@@ -1,0 +1,12 @@
+# Generate the keystore file jwt.jks which will contain public as well as private key
+  
+  keytool -genkeypair -alias jwt -keyalg RSA -keypass password -keystore jwt.jks -storepass password 
+
+# It is recommended to convert this to PKCS12 using below command
+
+  keytool -importkeystore -srckeystore jwt.jks -destkeystore jwt.jks -deststoretype pkcs12  --notworked, find below
+  keytool -importkeystore -srckeystore jwt.jks -destkeystore jwt2.jks -deststoretype PKCS12 -deststorepass password -srcstoretype JKS
+
+# Export the public key
+
+  keytool -list -rfc --keystore jwt.jks | openssl x509 -inform pem -pubkey
