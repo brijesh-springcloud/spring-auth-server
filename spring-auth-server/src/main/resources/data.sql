@@ -1,23 +1,23 @@
- INSERT INTO OAUTH_CLIENT_DETAILS (
-	CLIENT_ID,CLIENT_SECRET,
-	RESOURCE_IDS,
-	SCOPE,
-	AUTHORIZED_GRANT_TYPES,
-	WEB_SERVER_REDIRECT_URI,AUTHORITIES,
-	ACCESS_TOKEN_VALIDITY,REFRESH_TOKEN_VALIDITY,
-	ADDITIONAL_INFORMATION,AUTOAPPROVE)
-	VALUES(
+ insert into oauth_client_details (
+	client_id,client_secret,
+	resource_ids,
+	scope,
+	authorized_grant_types,
+	web_server_redirect_uri,authorities,
+	access_token_validity,refresh_token_validity,
+	additional_information,autoapprove)
+	values(
     'USER_CLIENT_APP','{bcrypt}$2a$10$EOs8VROb14e7ZnydvXECA.4LoIhPOoFHKvVF/iBZ/ker17Eocz4Vi',
 	'USER_CLIENT_RESOURCE,USER_ADMIN_RESOURCE',
 	'role_admin,role_user',
 	'authorization_code,password,refresh_token,implicit',
-	NULL,NULL,
+	null,'role_admin',
 	900,3600,
-	'{}',NULL);
+	'{}',null);
 
 
 
-INSERT INTO PERMISSION (NAME) VALUES 
+insert into permission (name) values 
 ('can_create_user'),
 ('can_update_user'),
 ('can_read_user'),
@@ -25,11 +25,11 @@ INSERT INTO PERMISSION (NAME) VALUES
 
 
 
-INSERT INTO ROLE (NAME) VALUES 
+insert into role (name) values 
 ('role_admin'),('role_user');  
 
 
-INSERT INTO PERMISSION_ROLE (PERMISSION_ID, ROLE_ID) VALUES 
+insert into permission_role (permission_id, role_id) values 
 (1,1), -- can_create_user assigned to role_admin 
 (2,1), -- can_update_user assigned to role_admin 
 (3,1), -- can_read_user assigned to role_admin 
@@ -37,16 +37,18 @@ INSERT INTO PERMISSION_ROLE (PERMISSION_ID, ROLE_ID) VALUES
 (3,2);  -- can_read_user assigned to role_user 
 
 
-INSERT INTO USER (
-USERNAME,PASSWORD,
-EMAIL,ENABLED,ACCOUNT_EXPIRED,CREDENTIALS_EXPIRED,ACCOUNT_LOCKED) VALUES (
+insert into user (
+username,password,
+email,enabled,account_expired,credentials_expired,account_locked) values (
 'admin','{bcrypt}$2a$10$EOs8VROb14e7ZnydvXECA.4LoIhPOoFHKvVF/iBZ/ker17Eocz4Vi',
 'admin@gmail.com',1,0,0,0),
 ('user','{bcrypt}$2a$10$EOs8VROb14e7ZnydvXECA.4LoIhPOoFHKvVF/iBZ/ker17Eocz4Vi',
 'user@gmail.com',1,0,0,0);
 
 
-INSERT INTO ROLE_USER (ROLE_ID, USER_ID)
-    VALUES 
+insert into role_user (role_id, user_id)
+    values 
     (1, 1), -- role_admin assigned to admin user  
     (2, 2); -- role_user assigned to user user  
+
+commit;

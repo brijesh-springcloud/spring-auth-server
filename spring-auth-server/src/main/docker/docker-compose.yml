@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+  
+  mysql-auth2:
+    image: itbrijesh143/mysql-auth2
+    restart: always
+    container_name: mysql-auth2
+    hostname: mysql-auth2
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_DATABASE: oauth2_dev
+      MYSQL_ROOT_PASSWORD: 'root'
+      
+  eureka-server:
+    image: itbrijesh143/spring-eureka-server
+    restart: always
+    ports:
+      - 8761:8761
+  
+  auth-server:
+    image: itbrijesh143/spring-auth-server
+    restart: always
+    ports:
+      - 5555:5555
+    depends_on: 
+      - mysql-auth2
+      - eureka-server
+    environment:
+      SPRING_DATASOURCE_URL: 'jdbc:mysql://mysql-auth2:3306/oauth2_dev?useSSL=false&allowPublicKeyRetrieval=true&createDatabaseIfNotExist=true'
+      

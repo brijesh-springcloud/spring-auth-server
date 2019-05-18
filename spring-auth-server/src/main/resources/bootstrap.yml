@@ -1,0 +1,31 @@
+# It is mandatory to use bootstrap file for spring config server
+
+server:
+  port: 5555
+  servlet:
+    context-path: /
+    
+spring:
+  
+  application:
+    name: spring-oauth-server
+  
+  profiles:
+    active: mysql
+      
+  cloud:
+    config:
+      uri: http://config-server:8888/
+      discovery:
+        enabled: true
+        service-id: config-server
+      
+# Register this auth server to Eureka server
+        
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka-server:8761/eureka
+              
+      
+      

@@ -25,13 +25,16 @@ public class CustomUserDetailsService implements UserDetailsService {
 	public UserDetails loadUserByUsername(String input) 
 	{
 		logger.info( logPrefix + " Loading user from database for " + input );
+		
 		User user = userRepository.findByUsername(input);
 
 		if (user == null)
 			throw new BadCredentialsException("Uername/Password are invalid (#CustomUserDetailsService).");
 
 		logger.info( logPrefix + " Loading Authorities/roles/scops from database >>>> " );
+		
 		user.getAuthorities().stream().forEach( role -> System.out.print( role ) );
+		
 		new AccountStatusUserDetailsChecker().check(user);
 
 		return user;

@@ -36,9 +36,10 @@ public class User extends BaseIdEntity implements UserDetails {
 	private boolean credentialsNonExpired;
 
 	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "role_user", joinColumns = {
-			@JoinColumn(name = "user_id", referencedColumnName = "id") }, inverseJoinColumns = {
-					@JoinColumn(name = "role_id", referencedColumnName = "id") })
+	@JoinTable( name = "role_user", 
+	            joinColumns = { @JoinColumn(name = "user_id", referencedColumnName = "id") }, 
+	            inverseJoinColumns = { @JoinColumn(name = "role_id", referencedColumnName = "id") })
+	
 	private List<Role> roles;
 
 	@Override

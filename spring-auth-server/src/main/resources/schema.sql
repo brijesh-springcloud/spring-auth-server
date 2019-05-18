@@ -1,60 +1,62 @@
-CREATE TABLE OAUTH_CLIENT_DETAILS 
+
+
+create table oauth_client_details 
 (
-	CLIENT_ID VARCHAR(255) NOT NULL PRIMARY KEY,
-	CLIENT_SECRET VARCHAR(255) NOT NULL,
-	RESOURCE_IDS VARCHAR(255) DEFAULT NULL,
-	SCOPE VARCHAR(255) DEFAULT NULL,
-	AUTHORIZED_GRANT_TYPES VARCHAR(255) DEFAULT NULL,
-	WEB_SERVER_REDIRECT_URI VARCHAR(255) DEFAULT NULL,
-	AUTHORITIES VARCHAR(255) DEFAULT NULL,
-	ACCESS_TOKEN_VALIDITY INT(11) DEFAULT NULL,
-	REFRESH_TOKEN_VALIDITY INT(11) DEFAULT NULL,
-	ADDITIONAL_INFORMATION VARCHAR(4096) DEFAULT NULL,
-	AUTOAPPROVE VARCHAR(255) DEFAULT NULL
+	client_id varchar(255) not null primary key,
+	client_secret varchar(255) not null,
+	resource_ids varchar(255) default null,
+	scope varchar(255) default null,
+	authorized_grant_types varchar(255) default null,
+	web_server_redirect_uri varchar(255) default null,
+	authorities varchar(255) default null,
+	access_token_validity int(11) default null,
+	refresh_token_validity int(11) default null,
+	additional_information varchar(4096) default null,
+	autoapprove varchar(255) default null
 );
  
  
-CREATE TABLE PERMISSION 
+create table permission 
 (
-	ID INT PRIMARY KEY AUTO_INCREMENT,
-	NAME VARCHAR(60) UNIQUE KEY
+	id int primary key auto_increment,
+	name varchar(60) unique key
 );
 
 
-CREATE TABLE ROLE 
+create table role 
 (
-	ID INT PRIMARY KEY AUTO_INCREMENT, 
-	NAME VARCHAR(60) UNIQUE KEY
+	id int primary key auto_increment, 
+	name varchar(60) unique key
 );
 
 
-CREATE TABLE PERMISSION_ROLE
+create table permission_role
 (
-	PERMISSION_ID INT,
-	FOREIGN KEY(PERMISSION_ID) REFERENCES PERMISSION(ID),
-	ROLE_ID INT,
-	FOREIGN KEY(ROLE_ID) REFERENCES ROLE(ID)
+	permission_id int,
+	foreign key(permission_id) references permission(id),
+	role_id int,
+	foreign key(role_id) references role(id)
 );
     
 
-CREATE TABLE USER 
+create table user 
 (
-	ID INT PRIMARY KEY AUTO_INCREMENT,
-	USERNAME VARCHAR(24) UNIQUE KEY NOT NULL,
-	PASSWORD VARCHAR(255) NOT NULL,
-	EMAIL VARCHAR(255) NOT NULL,
-	ENABLED BIT(1) NOT NULL,
-	ACCOUNT_EXPIRED BIT(1) NOT NULL,
-	CREDENTIALS_EXPIRED BIT(1) NOT NULL,
-	ACCOUNT_LOCKED BIT(1) NOT NULL
+	id int primary key auto_increment,
+	username varchar(24) unique key not null,
+	password varchar(255) not null,
+	email varchar(255) not null,
+	enabled bit(1) not null,
+	account_expired bit(1) not null,
+	credentials_expired bit(1) not null,
+	account_locked bit(1) not null
 );
     
     
-CREATE TABLE ROLE_USER
+create table role_user
 (
-	ROLE_ID INT,FOREIGN KEY(ROLE_ID) REFERENCES ROLE(ID),
-	USER_ID INT, FOREIGN KEY(USER_ID) REFERENCES USER(ID)
+	role_id int,foreign key(role_id) references role(id),
+	user_id int, foreign key(user_id) references user(id)
 );
     
     
-    
+ commit;   
